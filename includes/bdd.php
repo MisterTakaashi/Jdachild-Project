@@ -4,7 +4,7 @@ class BDD
     private $_host = "localhost";
     private $_user = "oegas";
     private $_password = "";
-    private $_dbname = "oegas";
+    private $_dbname = "jdachild";
 
     public function open(){
         try {

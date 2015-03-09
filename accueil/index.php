@@ -39,14 +39,14 @@
             <div class="container">
                 <div class="row">
                     <div id="listecours" class="col-md-8">
-                        <h3 class="title">Cours</h3>
+                        <h3 class="title">Derniers jeux</h3>
                         <?php
                             $nbrresultcours = -1;
-                            $coursliste = $cours->listAllCours($nbrresultcours);
+                            $coursliste = $game->listAllGames($nbrresultcours);
                             foreach ($coursliste as $coursvignette) {
                                 echo '<div class="col-md-4">';
                                 echo '<a href="#"><figure class="figurecours'.$coursvignette["id"].'">';
-                                echo '<div class="backgroundcours'.$coursvignette["id"].' backgroundcours" style="background: url(\'' . $coursvignette["vignette"] . '\'); background-size: cover; -webkit-background-size: cover; background-position-x: 0%;"></div>';
+                                echo '<div class="backgroundcours'.$coursvignette["id"].' backgroundcours" style="background: url(\'' . $coursvignette["image"] . '\'); background-size: cover; -webkit-background-size: cover; background-position-x: 0%;"></div>';
                                 echo '<figcaption></figcaption>';
                                 echo '</figure></a>';
                                 echo '</div>';

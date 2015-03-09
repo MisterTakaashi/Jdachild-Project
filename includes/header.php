@@ -1,8 +1,8 @@
 <?php
     include_once "../includes/session.php";
-    include_once "../includes/cours.php";
+    include_once "../includes/game.php";
     $session = new Session();
-    $cours = new Cours();
+    $game = new Game();
 ?>
 
 <!doctype html>
@@ -10,13 +10,14 @@
 <head>
     <meta charset="utf-8">
     <title>OEGAS Communauté</title>
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/lumen.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div id="supheader">Afin d'optimiser votre navigation sur notre site, nous utilisons des cookies &nbsp;<button type="button" class="btn btn-info" style="height: 25px;padding-top: 1px;margin-top: -3px;">Accepter</button></div>
+    <div id="supheader">Afin d'optimiser votre navigation sur notre site, nous utilisons des cookies &nbsp;<a href="#" class="btn btn-info">Accepter</a></div>
     <header>
         <div class="container">
             <a href="/accueil/"><div id="logo"></div></a><div id="splash">C'est plus fort que toi !</div>
@@ -24,8 +25,8 @@
                 <ul>
                     <a href="/accueil/"><li class= <?php echo $active = ( $_SERVER['REQUEST_URI'] == "/accueil/" || $_SERVER['REQUEST_URI'] == "/accueil/index.php") ? "active" : ""; ?> >Accueil</li></a>
                     <li>Truc</li>
-                    <li>Machin</li>
-                    <li>Pognon</li>
+                    <li class="separator"></li>
+                    <li><input class="form-control" id="focusedInput" type="text" placeholder="Rechercher un jeu"></li>
                     <li class="separator"></li>
                     <?php
                     if ($session->check()){
