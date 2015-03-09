@@ -2,7 +2,6 @@
     include_once "../includes/session.php";
     include_once "../includes/game.php";
     $session = new Session();
-    $game = new Game();
 ?>
 
 <!doctype html>

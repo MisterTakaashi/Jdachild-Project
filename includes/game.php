@@ -4,7 +4,23 @@ include_once "lib.php";
 
 class Game
 {
-    function listAllGames($nbrresult){
+    public $ID;
+    public $Nom;
+    public $App_id;
+    public $Image;
+    
+    function __construct($id, $nom, $app_id, $image)
+    {
+        $this->ID = $id;
+        $this->Nom = $nom;
+        $this->App_id = $app_id;
+        $this->Image = $image;
+    }
+}
+
+class GameManager
+{
+    public static function listAllGames($nbrresult){
         $tableaugames = Array();
 
         $bdd = new BDD();
@@ -24,6 +40,25 @@ class Game
 
         //var_dump($tableaugames);
         return $tableaugames;
+    }
+
+    public static function getGameInfo($id){
+        $tableaugame = Array();
+
+        $bdd = new BDD();
+        $connection = $bdd->open();
+
+        $id = $connection->quote($id);
+
+        $query = "SELECT * FROM games WHERE app_id = {$id}";
+
+        $selectInfo = $connection->query($query);
+        $selectInfo->setFetchMode(PDO::FETCH_OBJ);
+        $selectInfoFetch = $selectInfo->fetch();
+
+        $jeu = new Game($selectInfoFetch->id, $selectInfoFetch->nom, $selectInfoFetch->app_id, $selectInfoFetch->image);
+        
+        return $jeu;
     }
 
         /*function addCours($name, $desc, $vignetteaccueil){

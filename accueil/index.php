@@ -42,7 +42,7 @@
                         <h3 class="title">Derniers jeux</h3>
                         <?php
                             $nbrresultcours = -1;
-                            $coursliste = $game->listAllGames($nbrresultcours);
+                            $coursliste = GameManager::listAllGames($nbrresultcours);
                             foreach ($coursliste as $coursvignette) {
                                 echo '<div class="col-md-4">';
                                 echo '<a href="#"><figure class="figurecours'.$coursvignette["id"].'">';
