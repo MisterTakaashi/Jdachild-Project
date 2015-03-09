@@ -1,0 +1,6 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteRule ^connexion/password/new/([^/]*)/$ /connexion/newpass.php?new=$1 [L]
+RewriteRule ^connexion/password/new/([^/]*)$ /connexion/newpass.php?new=$1 [L]
+RewriteRule ^connexion/password/new/([^/]*)/([^/]*)$ /connexion/newpass.php?new=$1&token=$2 [L]
+RewriteRule ^connexion/password/new/([^/]*)/([^/]*)/$ /connexion/newpass.php?new=$1&token=$2 [L]
