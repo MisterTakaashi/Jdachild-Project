@@ -8,13 +8,33 @@ class Game
     public $Nom;
     public $App_id;
     public $Image;
+    public $Prerequis;
     
-    function __construct($id, $nom, $app_id, $image)
+    function __construct($id, $nom, $app_id, $image, $prerequis)
     {
         $this->ID = $id;
         $this->Nom = $nom;
         $this->App_id = $app_id;
         $this->Image = $image;
+        $this->Prerequis = $prerequis;
+    }
+}
+
+class GamePrerequis
+{
+    public $ID;
+    public $Game_id;
+    public $Type;
+    public $Contenu;
+    public $Recommandation;
+    
+    function __construct($id, $game_id, $type, $contenu, $recommandation)
+    {
+        $this->ID = $id;
+        $this->Game_id = $game_id;
+        $this->Type = $type;
+        $this->Contenu = $contenu;
+        $this->Recommandation = $recommandation;
     }
 }
 
@@ -42,23 +62,53 @@ class GameManager
         return $tableaugames;
     }
 
-    public static function getGameInfo($id){
+    public static function getGameInfo($app_id){
         $tableaugame = Array();
+
+        $bdd = new BDD();
+        $connection = $bdd->open();
+
+        $id = $connection->quote($app_id);
+
+        $query = "SELECT * FROM games WHERE app_id = {$app_id}";
+
+        $selectInfo = $connection->query($query);
+        $selectInfo->setFetchMode(PDO::FETCH_OBJ);
+        $selectInfoFetch = $selectInfo->fetch();
+
+        $prerequis = GameManager::getGamePrerequis($selectInfoFetch->id, NULL);
+
+        $jeu = new Game($selectInfoFetch->id, $selectInfoFetch->nom, $selectInfoFetch->app_id, $selectInfoFetch->image, $prerequis);
+        
+        //var_dump($jeu);
+
+        return $jeu;
+    }
+
+    private static function getGamePrerequis($id, $type){
+        $tableauPrerequis = Array();
 
         $bdd = new BDD();
         $connection = $bdd->open();
 
         $id = $connection->quote($id);
 
-        $query = "SELECT * FROM games WHERE app_id = {$id}";
+        if ($type != NULL){
+            $type = $connection->quote($type);
+            $query = "SELECT * FROM games_prerequis WHERE game_id = {$id} AND type = {$type}";
+        }
+        else{
+            $query = "SELECT * FROM games_prerequis WHERE game_id = {$id}";
+        }
 
         $selectInfo = $connection->query($query);
         $selectInfo->setFetchMode(PDO::FETCH_OBJ);
-        $selectInfoFetch = $selectInfo->fetch();
+        while ($selectInfoFetch = $selectInfo->fetch()){
+            $prerequis = new GamePrerequis($selectInfoFetch->id, $selectInfoFetch->game_id, $selectInfoFetch->type, $selectInfoFetch->contenu, $selectInfoFetch->recommandation);
+            array_push($tableauPrerequis, $prerequis);
+        }
 
-        $jeu = new Game($selectInfoFetch->id, $selectInfoFetch->nom, $selectInfoFetch->app_id, $selectInfoFetch->image);
-        
-        return $jeu;
+        return $tableauPrerequis;
     }
 
         /*function addCours($name, $desc, $vignetteaccueil){

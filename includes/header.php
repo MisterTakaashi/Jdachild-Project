@@ -1,7 +1,7 @@
 <?php
     include_once "../includes/session.php";
-    include_once "../includes/game.php";
     $session = new Session();
+    include_once "../includes/game.php";
 ?>
 
 <!doctype html>

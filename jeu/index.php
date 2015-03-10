@@ -23,14 +23,23 @@
 				<div class="list-group">
 				  <a href="#" class="list-group-item">
 				    <h4 class="list-group-item-heading">Système d'exploitation</h4>
-				    <p class="list-group-item-text"><kbd>Windows</kbd> Recommandé: Windows Server 2008 R2</p>
-				    <p class="list-group-item-text"><kbd>Linux</kbd> Recommandé: Ubuntu 10.04 32bits</p>
+				    <?php
+				    	foreach ($jeu->Prerequis as $prerequis) {
+				    		if ($prerequis->Type == "OS")
+				    			echo "<p class=\"list-group-item-text\"><kbd>".$prerequis->Contenu."</kbd> Recommandé: ".$prerequis->Recommandation."</p>";
+				    	}
+				    ?>
 				  </a>
 				  <a href="#" class="list-group-item">
 				    <h4 class="list-group-item-heading">Logiciel(s)</h4>
 				    <p class="list-group-item-text">
 				    	<ul>
-				    		<li>SteamCMD</li>
+				    		<?php
+						    	foreach ($jeu->Prerequis as $prerequis) {
+						    		if ($prerequis->Type == "Logiciel")
+						    			echo "<li>".$prerequis->Contenu."</li>";
+						    	}
+						    ?>
 				    	</ul>
 				    </p>
 				  </a>
@@ -53,7 +62,7 @@
 
 				    <div class="alert alert-warning">
 					  <h4>Attention!</h4>
-					  Installation réalisée sous Server 2012 R2. Certains éléments peuvent varier d'une version à une autre de cet OS.
+					  Installation réalisée sous <strong>Server 2012 R2</strong>. Certains éléments peuvent varier d'une version à une autre de cet OS.
 					</div>
 				  </div>
 				</div>

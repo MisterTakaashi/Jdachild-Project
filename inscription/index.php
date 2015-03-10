@@ -1,8 +1,8 @@
 <?php include "../includes/header.php"; ?>
 <?php
-if(isset($_POST['username'], $_POST['password'], $_POST['password2'], $_POST['email'], $_POST['promotion'])){
+if(isset($_POST['username'], $_POST['password'], $_POST['password2'], $_POST['email'], $_POST['typecompte'])){
     if($_POST['password'] == $_POST['password2']){
-        $returncreate = $session->createUser($_POST['username'], $_POST['email'], $_POST['password'], $_POST['promotion']);
+        $returncreate = $session->createUser($_POST['username'], $_POST['email'], $_POST['password'], $_POST['typecompte']);
 
         if($returncreate == 1){
             echo '<div class="alert alert-danger" role="alert">
@@ -53,21 +53,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['password2'], $_POST['em
                                     <input class="string required form-control" id="user_email" name="email" placeholder="E-Mail" type="email" required="required">
                                 </div>
                                 <div class="form-group email required user_email">
-                                    <select class="string required form-control" id="user_promotion" name="promotion">
-                                        <optgroup label="INGESUP">
-                                            <option value="B1">Bachelor 1</option>
-                                            <option value="B2">Bachelor 2</option>
-                                            <option value="B3">Bachelor 3</option>
-                                            <option value="E1">Expert 1</option>
-                                            <option value="E2">Expert 2</option>
-                                        </optgroup>
-                                        <optgroup label="Lim'Art">
-                                            <option value="MANAA1">MANAA</option>
-                                        </optgroup>
-                                        <optgroup label="INFOSUP">
-                                            <option value="BTS1">BTS 1</option>
-                                            <option value="BTS2">BTS 2</option>
-                                        </optgroup>
+                                    <select class="string required form-control" id="user_promotion" name="typecompte">
+                                        <option value="Joueur">Je suis un joueur</option>
+                                        <option value="Developpeur">Je suis développeur / moddeur</option>
+                                        <option value="Configurateur">Je configure les serveurs</option>
                                     </select>
                                 </div>
                                 <input class="btn btn-primary btn-block" name="commit" type="submit" value="S'inscrire" id="connexionbutton">

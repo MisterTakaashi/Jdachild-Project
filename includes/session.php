@@ -18,12 +18,12 @@ class Session{
         $selectId->setFetchMode(PDO::FETCH_OBJ);
         $selectIdFetch = $selectId->fetch();
 
-        if(isset($selectIdFetch->pseudo, $selectIdFetch->rank, $selectIdFetch->email, $selectIdFetch->promotion))
+        if(isset($selectIdFetch->pseudo, $selectIdFetch->rank, $selectIdFetch->email, $selectIdFetch->typecompte))
         {
             $_SESSION['username']    = $selectIdFetch->pseudo;
             $_SESSION['rank']        = $selectIdFetch->rank;
             $_SESSION['email']       = $selectIdFetch->email;
-            $_SESSION['promotion']   = $selectIdFetch->promotion;
+            $_SESSION['typecompte']  = $selectIdFetch->typecompte;
             $_SESSION['id']          = $selectIdFetch->id;
             return true;
         }
@@ -95,7 +95,7 @@ class Session{
             return 2;
         }
 
-        $connection->query("INSERT INTO users (pseudo, password, email, promotion, rank) VALUES({$pseudo}, {$password}, {$emailquote}, {$promotion}, 0)");
+        $connection->query("INSERT INTO users (pseudo, password, email, typecompte, rank) VALUES({$pseudo}, {$password}, {$emailquote}, {$promotion}, 0)");
 
         return 0;
     }
