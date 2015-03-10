@@ -1,4 +1,6 @@
-<?php include "../includes/header.php"; ?>
+<?php 
+include "../includes/header.php"; 
+?>
     <div id="global">
     	<div id="infojeu">
             <div class="container">
@@ -6,6 +8,11 @@
     			<?php
     				$jeu = GameManager::getGameInfo($_GET['id']);
     				echo "<h1>" . $jeu->Nom . "</h1>";
+
+    				if (isset($_POST['installationWindows']) && $_SESSION['rank'] == 9){
+    					//var_dump($_POST['installationWindows']);
+						GameManager::updateGameInstallation($jeu->ID, "Windows", $_POST['installationWindows']);
+					}
     			?>
     			</div>
 
@@ -56,20 +63,42 @@
 				<button class="btn btn-primary disabled" type="button" data-toggle="collapse" data-target="#collapseMac" aria-expanded="false" aria-controls="collapseMac">
 				  Mac OS
 				</button>
-				<div class="collapse" id="collapseWindows">
+
+				<?php $disbledButton = (isset($_SESSION['rank']) && $_SESSION['rank'] == 9) ? "" : "disabled"; ?>
+				<button id="boutonModif" class="btn btn-success <?php echo $disbledButton; ?>" type="button" style="float: right;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Module en cours de développement">Proposer une modification (En cours de dev)</button>
+				<button id="boutonModifValid" class="btn btn-success" style="float: right; display: none;" onclick="$('#formInstallation').submit()">Valider les modifications</button>
+
+				<div class="collapse in" id="collapseWindows">
 				  <div class="well">
-				    <h3>Installation sous Windows</h3>
+
+					<?php
+						$installationWindows = GameManager::getGameInstallation($jeu->ID, "Windows");
+					?>
 
 				    <div class="alert alert-warning">
-					  <h4>Attention!</h4>
-					  Installation réalisée sous <strong>Server 2012 R2</strong>. Certains éléments peuvent varier d'une version à une autre de cet OS.
+						<h4>Attention!</h4>
+					  	Installation réalisée sous <strong><?php echo $installationWindows->os_choosen;?></strong>. Certains éléments peuvent varier d'une version à une autre de cet OS.
 					</div>
 
 					<?php 
 						require_once '../includes/markdown.php';
 						$Parsedown = new Parsedown();
-						echo $Parsedown->text('### Hello _Parsedown_!');
+
+						$aparser = $installationWindows->contenu;
 					?>
+
+					<div id="markdownInstallation"><?php echo $Parsedown->text($aparser); ?></div>
+					<div id="markdownInstallationTextarea" style="display: none;"><form id="formInstallation" method="POST" action="#"><textarea name="installationWindows" data-provide="markdown" data-hidden-buttons="cmdPreview"><?php echo $aparser;?></textarea></form></div>
+
+					<script type="text/javascript">
+						$("#boutonModif").click(function(){
+							$("#markdownInstallation").hide();
+							$("#markdownInstallationTextarea").show();
+							$("#boutonModif").hide();
+							$("#boutonModifValid").show();
+						});
+					</script>
+
 				  </div>
 				</div>
 				<div class="collapse" id="collapseLinux">

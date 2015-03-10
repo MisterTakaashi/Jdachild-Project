@@ -111,6 +111,43 @@ class GameManager
         return $tableauPrerequis;
     }
 
+    public static function getGameInstallation($id, $os){
+        $bdd = new BDD();
+        $connection = $bdd->open();
+
+        $id = $connection->quote($id);
+        $os = $connection->quote($os);
+
+        $query = "SELECT * FROM games_installation WHERE game_id = {$id} AND os = {$os}";
+
+        $selectInfo = $connection->query($query);
+        $selectInfo->setFetchMode(PDO::FETCH_OBJ);
+        return $selectInfo->fetch();
+    }
+
+    public static function updateGameInstallation($id, $os, $installation){
+        $bdd = new BDD();
+        $connection = $bdd->open();
+
+        $id           = $connection->quote($id);
+        $os           = $connection->quote($os);
+        $installation = $connection->quote($installation);
+
+        $query = "SELECT count(*) NBRRESULT FROM games_installation WHERE game_id = {$id} AND os = {$os}";
+
+        $selectInfo = $connection->query($query);
+        $selectInfo->setFetchMode(PDO::FETCH_OBJ);
+        $selectInfoFetch = $selectInfo->fetch();
+
+        if ($selectInfoFetch != "0"){
+            $query = "UPDATE games_installation SET contenu = {$installation} WHERE game_id = {$id} AND os = {$os}";
+        }else{
+            $query = "INSERT INTO games_installation (game_id, os, contenu, os_choosen) VALUES ({$id}, {$os}, {$installation}, 'OS Non connu')";
+        }
+
+        $connection->query($query);
+    }
+
         /*function addCours($name, $desc, $vignetteaccueil){
             $bdd = new BDD();
             $connection = $bdd->open();
