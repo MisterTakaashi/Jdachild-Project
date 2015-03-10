@@ -45,7 +45,7 @@
                             $coursliste = GameManager::listAllGames($nbrresultcours);
                             foreach ($coursliste as $coursvignette) {
                                 echo '<div class="col-md-4">';
-                                echo '<a href="#"><figure class="figurecours'.$coursvignette["id"].'">';
+                                echo '<a href="/game/'.$coursvignette["app_id"].'"><figure class="figurecours'.$coursvignette["id"].'">';
                                 echo '<div class="backgroundcours'.$coursvignette["id"].' backgroundcours" style="background: url(\'' . $coursvignette["image"] . '\'); background-size: cover; -webkit-background-size: cover; background-position-x: 0%;"></div>';
                                 echo '<figcaption></figcaption>';
                                 echo '</figure></a>';

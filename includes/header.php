@@ -16,7 +16,14 @@
     <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div id="supheader">Afin d'optimiser votre navigation sur notre site, nous utilisons des cookies &nbsp;<a href="#" class="btn btn-info">Accepter</a></div>
+    <?php $testcookie = (isset($_COOKIE["cookies"])) ? "none" : "block" ?>
+    <div id="supheader" style="display: <?php echo $testcookie; ?>;">Afin d'optimiser votre navigation sur notre site, nous utilisons des cookies &nbsp;<a href="#" class="btn btn-info">Accepter</a></div>
+    <script>
+    $("#supheader a").click(function(){
+        document.cookie="cookies=true";
+        $("#supheader").hide(1000);
+    });
+    </script>
     <header>
         <div class="container">
             <a href="/accueil/"><div id="logo"></div></a><div id="splash">C'est plus fort que toi !</div>
