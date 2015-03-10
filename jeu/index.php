@@ -64,6 +64,12 @@
 					  <h4>Attention!</h4>
 					  Installation réalisée sous <strong>Server 2012 R2</strong>. Certains éléments peuvent varier d'une version à une autre de cet OS.
 					</div>
+
+					<?php 
+						require_once '../includes/markdown.php';
+						$Parsedown = new Parsedown();
+						echo $Parsedown->text('### Hello _Parsedown_!');
+					?>
 				  </div>
 				</div>
 				<div class="collapse" id="collapseLinux">

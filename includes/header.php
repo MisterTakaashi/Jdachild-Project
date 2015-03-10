@@ -10,10 +10,12 @@
     <meta charset="utf-8">
     <title>OEGAS Communauté</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-markdown.min.css">
     <link rel="stylesheet" href="/css/lumen.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-markdown.js"></script>
 </head>
 <body>
     <?php $testcookie = (isset($_COOKIE["cookies"])) ? "none" : "block" ?>
