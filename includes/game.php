@@ -9,7 +9,7 @@ class Game
     public $App_id;
     public $Image;
     public $Prerequis;
-    
+
     function __construct($id, $nom, $app_id, $image, $prerequis)
     {
         $this->ID = $id;
@@ -27,7 +27,7 @@ class GamePrerequis
     public $Type;
     public $Contenu;
     public $Recommandation;
-    
+
     function __construct($id, $game_id, $type, $contenu, $recommandation)
     {
         $this->ID = $id;
@@ -79,7 +79,7 @@ class GameManager
         $prerequis = GameManager::getGamePrerequis($selectInfoFetch->id, NULL);
 
         $jeu = new Game($selectInfoFetch->id, $selectInfoFetch->nom, $selectInfoFetch->app_id, $selectInfoFetch->image, $prerequis);
-        
+
         //var_dump($jeu);
 
         return $jeu;
@@ -131,7 +131,8 @@ class GameManager
 
         $id           = $connection->quote($id);
         $os           = $connection->quote($os);
-        $installation = $connection->quote($installation);
+        if ($installation != '')
+            $installation = $connection->quote($installation);
 
         $query = "SELECT count(*) NBRRESULT FROM games_installation WHERE game_id = {$id} AND os = {$os}";
 
@@ -139,13 +140,36 @@ class GameManager
         $selectInfo->setFetchMode(PDO::FETCH_OBJ);
         $selectInfoFetch = $selectInfo->fetch();
 
-        if ($selectInfoFetch != "0"){
+        //echo "Nombre de resultats pour {$os}: {$selectInfoFetch->NBRRESULT}<br>";
+
+        if ($selectInfoFetch->NBRRESULT != "0" && $installation != ''){
             $query = "UPDATE games_installation SET contenu = {$installation} WHERE game_id = {$id} AND os = {$os}";
-        }else{
+        }else if($selectInfoFetch->NBRRESULT != "0" && $installation == ''){
+            $query = "DELETE FROM games_installation WHERE game_id = {$id} AND os = {$os}";
+        }else if($selectInfoFetch->NBRRESULT == "0" && $installation != ''){
             $query = "INSERT INTO games_installation (game_id, os, contenu, os_choosen) VALUES ({$id}, {$os}, {$installation}, 'OS Non connu')";
         }
 
         $connection->query($query);
+    }
+
+    public static function getInstallOSList($id){
+        $listOs = Array();
+
+        $bdd = new BDD();
+        $connection = $bdd->open();
+
+        $id = $connection->quote($id);
+
+        $query = "SELECT os FROM games_installation WHERE game_id = {$id}";
+
+        $selectInfo = $connection->query($query);
+        $selectInfo->setFetchMode(PDO::FETCH_OBJ);
+        while($selectInfoFetch = $selectInfo->fetch()){
+            array_push($listOs, $selectInfoFetch->os);
+        }
+
+        return $listOs;
     }
 
         /*function addCours($name, $desc, $vignetteaccueil){
