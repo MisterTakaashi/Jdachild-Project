@@ -54,9 +54,8 @@ $Parsedown = new Parsedown();
 	    			<div class="btn-group btn-group-justified">
 					  <a href="#" class="btn btn-info">Créer un serveur</a>
 					  <a href="#" class="btn btn-default">Configurer le serveur</a>
-					  <a href="#" class="btn btn-default">Améliorer le serveur</a>
 					  <a href="#" class="btn btn-default">Ressources</a>
-					  <a href="#" class="btn btn-default">Boutique</a>
+					  <a href="#" class="btn btn-default">Forum</a>
 					</div>
 				</div>
 
