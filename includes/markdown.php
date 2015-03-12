@@ -1178,7 +1178,7 @@ class Parsedown
             'attributes' => array(
                 'href' => null,
                 'title' => null,
-                'target' => '_blank',
+                'target' => null,
             ),
         );
 
@@ -1233,6 +1233,11 @@ class Parsedown
 
             $Element['attributes']['href'] = $Definition['url'];
             $Element['attributes']['title'] = $Definition['title'];
+        }
+
+        if (!preg_match('/#[\s\S]+/', $remainder, $matches))
+        {
+            $Element['attributes']['target'] = "_blank";
         }
 
         $Element['attributes']['href'] = str_replace(array('&', '<'), array('&amp;', '&lt;'), $Element['attributes']['href']);
