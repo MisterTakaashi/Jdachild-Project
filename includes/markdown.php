@@ -486,7 +486,7 @@ class Parsedown
             $Block = array(
                 'element' => array(
                     //'name' => 'h' . min(6, $level),
-                    'name' => 'h' . min(6, $level) . ' id=\''.$text.'\'',
+                    'name' => 'h' . min(6, $level) . ' id=\''.str_replace(" ", "_", $text).'\'',
                     'text' => $text,
                     'handler' => 'line',
                 ),
