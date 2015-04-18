@@ -218,3 +218,13 @@ h3.title {
 #listecours figure:last-child{
     margin-bottom: 25px;
 }
+.expcolimage {
+  float: right;
+  width: auto;
+  vertical-align: middle;
+  margin-top: 2px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}

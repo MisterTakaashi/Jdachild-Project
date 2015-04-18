@@ -6,3 +6,7 @@ RewriteRule ^connexion/password/new/([^/]*)/([^/]*)$ /connexion/newpass.php?new=
 RewriteRule ^connexion/password/new/([^/]*)/([^/]*)/$ /connexion/newpass.php?new=$1&token=$2 [L]
 RewriteRule ^game/([^/]*)$ /jeu/index.php?id=$1 [L]
 RewriteRule ^game/([^/]*)/$ /jeu/index.php?id=$1 [L]
+RewriteRule ^game/([^/]*)/create$ /jeu/index.php?id=$1 [L]
+RewriteRule ^game/([^/]*)/create/$ /jeu/index.php?id=$1 [L]
+RewriteRule ^game/([^/]*)/forum/$ /jeu/forum.php?id=$1 [L]
+RewriteRule ^game/([^/]*)/forum/$ /jeu/forum.php?id=$1 [L]

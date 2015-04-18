@@ -52,10 +52,10 @@ $Parsedown = new Parsedown();
 
     			<div class="row">
 	    			<div class="btn-group btn-group-justified">
-					  <a href="#" class="btn btn-info">Créer un serveur</a>
-					  <a href="#" class="btn btn-default">Configurer le serveur</a>
-					  <a href="#" class="btn btn-default">Ressources</a>
-					  <a href="#" class="btn btn-default">Forum</a>
+					  <a href="/game/<?=$_GET['id']?>/create/" class="btn btn-info">Créer un serveur</a>
+					  <a href="#" class="btn btn-default disabled">Configurer le serveur (DEV)</a>
+					  <a href="#" class="btn btn-default disabled">Ressources (DEV)</a>
+					  <a href="/game/<?=$_GET['id']?>/forum/" class="btn btn-default">Forum</a>
 					</div>
 				</div>
 
